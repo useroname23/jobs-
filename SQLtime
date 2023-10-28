@@ -1,0 +1,96 @@
+CREATE TABLE Time (
+    Timeid INT PRIMARY KEY,
+    nome VARCHAR(300)
+);
+ 
+ 
+ 
+ 
+INSERT INTO Time (Timeid, nome) VALUES 
+(1, 'Chicago Bulls'),
+(2, 'Los Angeles Lakers'),
+(3, 'Boston Celtics'),
+(4, 'Houston Rockets');
+ 
+ 
+ 
+ 
+CREATE TABLE Jogo (
+    Jogoid INT PRIMARY KEY,
+    Local VARCHAR(260),
+    Data DATE
+);
+ 
+ 
+ 
+ 
+INSERT INTO Jogo (Jogoid, Local, Data) VALUES
+(1, 'Parola', '2023-10-23'),
+(2, 'Osternack', '2023-11-23'),
+(3, 'Úmbara', '2024-01-03'),
+(4, 'Praça Osorio', '2024-01-10');
+ 
+ 
+ 
+ 
+CREATE TABLE time_jogo (
+    Timeid INT,
+    JogoID INT,
+    Faltas INT,
+    casa_visitante VARCHAR(80),
+    pontos_a_favor INT,
+    PRIMARY KEY (Timeid, JogoID),
+    FOREIGN KEY (Timeid) REFERENCES Time(Timeid),
+    FOREIGN KEY (JogoID) REFERENCES Jogo(Jogoid)
+);
+ 
+ 
+ 
+ 
+INSERT INTO time_jogo (Timeid, JogoID, Faltas, casa_visitante, pontos_a_favor) 
+VALUES 
+(1, 1, 6, 'visitante', 120),
+(2, 2, 2, 'casa', 98),
+(3, 3, 15, 'visitante', 138),
+(4, 4, 0, 'casa', 100);
+ 
+ 
+ 
+ 
+CREATE TABLE Jogador (
+    Jogadorid INT PRIMARY KEY,
+    Nome VARCHAR(280),
+    Timeid INT,
+    FOREIGN KEY (Timeid) REFERENCES Time(Timeid)
+);
+ 
+ 
+ 
+ 
+INSERT INTO Jogador (Jogadorid, Nome, Timeid) VALUES
+(1, 'Michael Jordan', 1),
+(2, 'LeBron James', 2),
+(3, 'Lamar Stevens', 3),
+(4, 'James Harden', 4);
+ 
+ 
+ 
+ 
+CREATE TABLE Jogador_Jogo (
+    Jogadorid INT,
+    Jogoid INT,
+    PRIMARY KEY (Jogadorid, Jogoid),
+    FOREIGN KEY (Jogadorid) REFERENCES Jogador(Jogadorid),
+    FOREIGN KEY (Jogoid) REFERENCES Jogo(Jogoid)
+);
+ 
+ 
+ 
+ 
+ 
+ 
+INSERT INTO Jogador_Jogo (Jogadorid, Jogoid) VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4);
